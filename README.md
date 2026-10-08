@@ -1,7 +1,7 @@
 # Berachain Skills
 
-Reusable agent skills for use across repositories, organized for the
-[skills CLI](https://github.com/vercel-labs/skills#skill-discovery).
+Shared Berachain coding conventions for AI coding agents. Install these skills
+on your computer to use them across projects, or install them in a single repo.
 
 ## Skills
 
@@ -9,22 +9,58 @@ Reusable agent skills for use across repositories, organized for the
 | --- | --- |
 | [typescript-coding-standards](skills/typescript-coding-standards/SKILL.md) | Shared TypeScript conventions for services, workers, packages, React, and Next.js |
 
-## Local installation
+## Install on your computer
 
-From this checkout, list the discoverable skills:
+You need Node.js with npm (`npx`), Git, and a supported coding agent.
+Run this command in your terminal:
+
+```sh
+npx skills add berachain/skills --global
+```
+
+Choose the skills and agents in the prompts. `--global` makes the installation
+available across your projects. No local clone is needed.
+
+To install all skills for a specific agent, use one of:
+
+```sh
+npx skills add berachain/skills --global --skill '*' --agent codex
+npx skills add berachain/skills --global --skill '*' --agent claude-code
+npx skills add berachain/skills --global --skill '*' --agent cursor
+```
+
+For SSH authentication, replace `berachain/skills` with
+`git@github.com:berachain/skills.git`.
+
+## Install in one project
+
+Run from the consuming project's root, omitting `--global`:
+
+```sh
+npx skills add berachain/skills --skill typescript-coding-standards
+```
+
+## Check and update
+
+```sh
+# List skills installed on your computer
+npx skills list --global
+
+# Update this skill
+npx skills update typescript-coding-standards --global
+```
+
+See the [skills CLI documentation](https://github.com/vercel-labs/skills) for
+supported agents and installation options.
+
+## Install local changes
+
+From this checkout, preview available skills and install your local version:
 
 ```sh
 npx skills add . --list
+npx skills add . --global --skill typescript-coding-standards
 ```
-
-From a consuming project, install using the path to this checkout:
-
-```sh
-npx skills add /path/to/skills --skill typescript-coding-standards
-```
-
-Once hosted, the same command accepts the actual GitHub `owner/repo` instead of
-the local path. No npm package or agent-specific plugin manifest is required.
 
 ## Structure
 
@@ -37,6 +73,7 @@ skills/
       file-naming-and-size.md
       comments.md
       modules.md
+      dependencies.md
       runtime.md
       react.md
       testing.md
